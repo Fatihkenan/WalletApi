@@ -3,6 +3,6 @@
     public abstract class BaseEntity
     {
         public Guid Id { get; set; }
-        public DateTime CreateedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }
