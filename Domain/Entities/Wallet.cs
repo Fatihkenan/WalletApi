@@ -6,6 +6,8 @@ namespace Domain.Entities
     {
         public int Balance { get; set; }
         public string UserId { get; set; }
+
+        // Navigation property 
         public ICollection<Transaction> SentTransactions { get; set; }
         public ICollection<Transaction> ReceivedTransactions { get; set; }
 
