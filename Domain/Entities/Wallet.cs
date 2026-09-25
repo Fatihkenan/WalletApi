@@ -5,7 +5,7 @@ namespace Domain.Entities
     public class Wallet : BaseEntity
     {
         public int Balance { get; set; }
-        public string UserId { get; set; }
+        public Guid UserId { get; set; }
 
         // Navigation property 
         public ICollection<Transaction> SentTransactions { get; set; }
