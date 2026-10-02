@@ -1,9 +1,11 @@
+using Application; // Yazdığımız extension metodun kütüphanesi
 using Persistence; // Yazdığımız extension metodun kütüphanesi
 
 var builder = WebApplication.CreateBuilder(args);
 
 // PERSISTENCE KATMANINI SİSTEME DAHİL EDİYORUZ
 builder.Services.AddPersistenceServices(builder.Configuration);
+builder.Services.AddApplicationServices();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
