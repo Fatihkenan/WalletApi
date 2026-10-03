@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Application.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Contexts;
 using Persistence.Identity;
+using Persistence.Services;
 
 namespace Persistence
 {
@@ -23,6 +25,7 @@ namespace Persistence
             })
             .AddRoles<AppRole>() // Rol altyapısını sisteme dahil ediyoruz
             .AddEntityFrameworkStores<WalletDbContext>();
+            services.AddScoped<IAuthService, AuthService>();
         }
     }
 }
