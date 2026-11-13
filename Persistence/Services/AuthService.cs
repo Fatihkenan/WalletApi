@@ -1,4 +1,5 @@
-﻿using Application.Features.Auth.Register;
+﻿using Application.Features.Auth.Login;
+using Application.Features.Auth.Register;
 using Application.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Persistence.Identity;
@@ -14,6 +15,7 @@ namespace Persistence.Services
             _userManager = userManager;
         }
 
+        // --- KAYIT OL (REGISTER) METODU ---
         public async Task<string> RegisterAsync(RegisterCommand request)
         {
             var user = new AppUser
@@ -31,6 +33,24 @@ namespace Persistence.Services
             }
 
             return $"Kullanıcı {request.Username} kaydedilirken bir hata oluştu.";
+        }
+
+        // --- GİRİŞ YAP (LOGIN) METODU ---
+        public async Task<string> LoginAsync(LoginCommand request)
+        {
+            var user = await _userManager.FindByEmailAsync(request.Email);
+            if (user == null)
+            {
+                return "Hata: Kullanıcı bulunamadı.";
+            }
+
+            var isPasswordCorrect = await _userManager.CheckPasswordAsync(user, request.Password);
+            if (!isPasswordCorrect)
+            {
+                return "Hata: Girdiğiniz şifre yanlış.";
+            }
+
+            return "Başarılı: Sisteme giriş yapıldı!";
         }
     }
 }
