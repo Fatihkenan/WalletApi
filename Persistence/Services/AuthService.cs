@@ -9,10 +9,12 @@ namespace Persistence.Services
     public class AuthService : IAuthService
     {
         private readonly UserManager<AppUser> _userManager;
+        private readonly ITokenService _tokenService;
 
-        public AuthService(UserManager<AppUser> userManager)
+        public AuthService(UserManager<AppUser> userManager, ITokenService tokenService)
         {
             _userManager = userManager;
+            _tokenService = tokenService;
         }
 
         // --- KAYIT OL (REGISTER) METODU ---
@@ -50,7 +52,16 @@ namespace Persistence.Services
                 return "Hata: Girdiğiniz şifre yanlış.";
             }
 
-            return "Başarılı: Sisteme giriş yapıldı!";
+            var roles = await _userManager.GetRolesAsync(user);
+
+            var token = _tokenService.GenerateToken(
+                user.Id.ToString(),
+                user.Email!,
+                user.UserName!,
+                roles
+            );
+
+            return token;
         }
     }
 }
