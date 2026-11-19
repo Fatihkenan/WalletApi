@@ -1,4 +1,5 @@
 using Application; // Yazdığımız extension metodun kütüphanesi
+using Infrastructure;
 using Persistence; // Yazdığımız extension metodun kütüphanesi
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,10 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 // PERSISTENCE KATMANINI SİSTEME DAHİL EDİYORUZ
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 
